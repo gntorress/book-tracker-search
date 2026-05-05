@@ -4,11 +4,6 @@ import BookModal from "./components/BookModal";
 import SearchBar from "./components/SearchBar";
 import "./App.css";
 
-// ---------- localStorage helpers ----------
-// These two functions are like a save/load system for your browser.
-// localStorage is a mini database built into every browser.
-// It stores data as text (strings), so we use JSON to convert
-// our book objects to/from text.
 
 function loadBooks() {
   const saved = localStorage.getItem("myBooks");
@@ -19,36 +14,27 @@ function loadBooks() {
       { id: 2, title: "Dune", author: "Frank Herbert", status: "Reading", rating: 4, cover: null, genre: "Sci-Fi", description: "A epic tale of politics, religion, and survival on a desert planet.", notes: "" },
     ];
   }
-  return JSON.parse(saved); // Convert text back to objects
+  return JSON.parse(saved); 
 }
 
 function saveBooks(books) {
-  localStorage.setItem("myBooks", JSON.stringify(books)); // Convert objects to text
+  localStorage.setItem("myBooks", JSON.stringify(books));
 }
 
 // ------------------------------------------
 
 export default function App() {
-  // books state: the master list of all books you're tracking
   const [books, setBooks] = useState(loadBooks);
-
-  // selectedBook: which book card is currently open in the modal (null = no modal)
   const [selectedBook, setSelectedBook] = useState(null);
-
-  // activeFilter: which status tab is selected (All, Want to Read, Reading, Finished)
   const [activeFilter, setActiveFilter] = useState("All");
 
-  // Whenever 'books' changes, save to localStorage automatically
-  // useEffect runs the function inside it whenever the values in the
-  // array at the end ([books]) change. So every time books updates, we save.
   useEffect(() => {
     saveBooks(books);
   }, [books]);
 
-  // Called when user picks a book from the search dropdown
   function handleAddBook(bookData) {
     const newBook = {
-      id: Date.now(), // Simple unique ID using current timestamp
+      id: Date.now(), 
       title: bookData.title,
       author: bookData.author,
       status: "Want to Read",
@@ -58,25 +44,22 @@ export default function App() {
       description: bookData.description || "",
       notes: "",
     };
-    const updated = [newBook, ...books]; // Add new book to front of list
+    const updated = [newBook, ...books]; 
     setBooks(updated);
   }
 
-  // Called from the modal when user changes status or rating
   function handleUpdateBook(updatedBook) {
     const updated = books.map((b) => (b.id === updatedBook.id ? updatedBook : b));
     setBooks(updated);
-    setSelectedBook(updatedBook); // Keep modal in sync
+    setSelectedBook(updatedBook);
   }
 
-  // Called from the modal's delete button
   function handleDeleteBook(bookId) {
     const updated = books.filter((b) => b.id !== bookId);
     setBooks(updated);
-    setSelectedBook(null); // Close the modal
+    setSelectedBook(null);
   }
 
-  // Filter books based on which tab is active
   const visibleBooks =
     activeFilter === "All" ? books : books.filter((b) => b.status === activeFilter);
 
