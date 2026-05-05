@@ -1,23 +1,20 @@
-// BookCard.jsx
-// This is a "presentational" component — it just displays data,
-// it doesn't manage any state itself. All the data comes in via "props"
-// (the { book, onClick } parameters), which are like arguments to a function.
-
 const STATUS_STYLES = {
   "Want to Read": { label: "Want to Read", cls: "status-want" },
-  "Reading":      { label: "Reading",       cls: "status-reading" },
-  "Finished":     { label: "Finished",      cls: "status-finished" },
+  "Reading": { label: "Reading", cls: "status-reading" },
+  "Finished": { label: "Finished", cls: "status-finished" },
 };
 
 export default function BookCard({ book, onClick }) {
   const status = STATUS_STYLES[book.status] || STATUS_STYLES["Want to Read"];
 
   return (
-    // When the card is clicked, we call onClick() which tells App.jsx
-    // to set this book as the selectedBook, which opens the modal.
-    <div className="book-card" onClick={onClick} role="button" tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && onClick()}>
-
+    <div
+      className="book-card"
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+    >
       <div className="card-cover-area">
         {book.cover ? (
           <img src={book.cover} alt={book.title} className="card-cover-img" />
