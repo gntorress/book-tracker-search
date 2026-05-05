@@ -7,8 +7,19 @@ import "./App.css";
 
 function loadBooks() {
   const saved = localStorage.getItem("myBooks");
+<<<<<<< HEAD
   if (!saved) return []; // ← empty shelf by default
   return JSON.parse(saved);
+=======
+  // If nothing saved yet, return the starter books
+  if (!saved) {
+    return [
+      { id: 1, title: "The Hobbit", author: "J.R.R. Tolkien", status: "Finished", rating: 5, cover: null, genre: "Fantasy", description: "A hobbit goes on an unexpected adventure.", notes: "" },
+      { id: 2, title: "Dune", author: "Frank Herbert", status: "Reading", rating: 4, cover: null, genre: "Sci-Fi", description: "A epic tale of politics, religion, and survival on a desert planet.", notes: "" },
+    ];
+  }
+  return JSON.parse(saved); 
+>>>>>>> 00968e1ec10f9b397ec49d7d4a9a4ec1ff9844b8
 }
 
 function saveBooks(books) {
