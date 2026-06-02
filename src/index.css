@@ -1,15 +1,17 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  /* Light mode — Shoji White parchment + Vintage Vogue accent */
+  --text: #4f4842;              /* Urbane Bronze */
+  --text-h: #2e2c29;            /* Perle Noir */
+  --bg: #e5ddd0;                /* Shoji White */
+  --border: #c8bcab;            /* Shiitake, lightened */
+  --code-bg: #ebe1d2;           /* paler Shiitake */
+  --accent: #3a4f58;            /* Vintage Vogue */
+  --accent-bg: rgba(58, 79, 88, 0.1);
+  --accent-border: rgba(58, 79, 88, 0.5);
+  --social-bg: rgba(200, 188, 171, 0.5);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(46, 44, 41, 0.1) 0 10px 15px -3px,
+    rgba(46, 44, 41, 0.06) 0 4px 6px -2px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -30,24 +32,24 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* ── Dark mode tokens for index.css scope ── */
+[data-theme="dark"] {
+  --text: #b5a697;              /* Shiitake — warm parchment text */
+  --text-h: #e5ddd0;            /* Shoji White — heading cream */
+  --bg: #2e2c29;                /* Perle Noir */
+  --border: #4f4842;            /* Urbane Bronze */
+  --code-bg: #3a3835;           /* slightly lifted from bg */
+  --accent: #8aa3aa;            /* lightened Vintage Vogue */
+  --accent-bg: rgba(138, 163, 170, 0.15);
+  --accent-border: rgba(138, 163, 170, 0.5);
+  --social-bg: rgba(79, 72, 66, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.5) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+[data-theme="dark"] #social .button-icon {
+  filter: invert(1) brightness(2);
 }
 
 body {

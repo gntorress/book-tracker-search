@@ -4,6 +4,22 @@ import BookModal from "./components/BookModal";
 import SearchBar from "./components/SearchBar";
 import "./App.css";
 
+// ── Theme toggle icons ──
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2"/><path d="M12 20v2"/>
+    <path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
+    <path d="M2 12h2"/><path d="M20 12h2"/>
+    <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+);
 
 function loadBooks() {
   const saved = localStorage.getItem("myBooks");
@@ -22,13 +38,25 @@ export default function App() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
 
+  // ── Theme state: saved choice → system preference → light ──
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   useEffect(() => {
     saveBooks(books);
   }, [books]);
 
   function handleAddBook(bookData) {
     const newBook = {
-      id: Date.now(), 
+      id: Date.now(),
       title: bookData.title,
       author: bookData.author,
       status: "Want to Read",
@@ -38,7 +66,7 @@ export default function App() {
       description: bookData.description || "",
       notes: "",
     };
-    const updated = [newBook, ...books]; 
+    const updated = [newBook, ...books];
     setBooks(updated);
   }
 
@@ -62,13 +90,21 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
+          aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+        >
+          {theme === "light" ? <MoonIcon /> : <SunIcon />}
+        </button>
         <div className="header-inner">
           <div className="header-top">
             <h1 className="app-title">
               <span className="title-icon">◈</span>
               Shelf
             </h1>
-            <p className="app-subtitle">Live Laugh Read</p>
+            <p className="app-subtitle">What are we reading today?</p>
           </div>
           <SearchBar onAddBook={handleAddBook} />
         </div>

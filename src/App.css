@@ -3,27 +3,79 @@
 
 /* ── Design Tokens ── */
 :root {
-  --cream: #f7f3ed;
-  --cream-dark: #ede8e0;
-  --ink: #1a1610;
-  --ink-soft: #4a4540;
-  --ink-muted: #8a847c;
-  --amber: #c8832a;
-  --amber-light: #f5e8d0;
-  --amber-pale: #fdf6ec;
-  --teal: #2a7c6f;
-  --teal-light: #e0f0ed;
-  --red-soft: #c84444;
-  --red-light: #fbeaea;
-  --border: rgba(60, 50, 30, 0.12);
-  --border-strong: rgba(60, 50, 30, 0.22);
-  --shadow-card: 0 2px 12px rgba(30, 20, 5, 0.08);
-  --shadow-modal: 0 8px 40px rgba(30, 20, 5, 0.18);
+  /* Aged parchment surfaces — Shoji White & Shiitake */
+  --cream: #e5ddd0;             /* Shoji White */
+  --cream-dark: #c8bcab;        /* Shiitake, lightened */
+
+  /* Inks — Perle Noir, Urbane Bronze, Homburg Gray */
+  --ink: #2e2c29;               /* Perle Noir */
+  --ink-soft: #4f4842;          /* Urbane Bronze */
+  --ink-muted: #7a7269;         /* Homburg Gray, lightened */
+
+  /* Primary accent — Vintage Vogue (dusty teal) */
+  --amber: #3a4f58;             /* Vintage Vogue */
+  --amber-light: #c8d2d5;       /* Vintage Vogue tint */
+  --amber-pale: #ebeff1;        /* pale Vintage Vogue hover */
+
+  /* Reading status — Black Forest Green */
+  --teal: #2c362f;              /* Black Forest Green */
+  --teal-light: #d0d6d1;        /* forest tint */
+
+  /* Delete — Sulking Room Pink, deepened for readability */
+  --red-soft: #a07e7a;          /* Sulking Room Pink */
+  --red-light: #f0e2e0;         /* pale pink */
+
+  /* Borders & shadows */
+  --border: rgba(46, 44, 41, 0.12);
+  --border-strong: rgba(46, 44, 41, 0.22);
+  --shadow-card: 0 2px 12px rgba(46, 44, 41, 0.08);
+  --shadow-modal: 0 8px 40px rgba(46, 44, 41, 0.18);
+
   --radius: 10px;
   --radius-lg: 16px;
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --transition: 0.18s ease;
+}
+
+/* ── Dark Mode Tokens ── */
+[data-theme="dark"] {
+  --cream: #2e2c29;             /* Perle Noir — body bg */
+  --cream-dark: #4f4842;        /* Urbane Bronze — elevated surfaces */
+  --ink: #e5ddd0;               /* Shoji White — body text */
+  --ink-soft: #c8bcab;          /* Shiitake — soft text */
+  --ink-muted: #8a7d6b;         /* Homburg Gray — muted text */
+  --amber: #8aa3aa;             /* lifted Vintage Vogue */
+  --amber-light: rgba(138, 163, 170, 0.18);
+  --amber-pale: rgba(138, 163, 170, 0.08);
+  --teal: #a8b89a;              /* lifted forest sage */
+  --teal-light: rgba(168, 184, 154, 0.18);
+  --red-soft: #c8a39e;          /* lifted Sulking Room Pink */
+  --red-light: rgba(200, 163, 158, 0.15);
+  --border: rgba(229, 221, 208, 0.12);
+  --border-strong: rgba(229, 221, 208, 0.25);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --shadow-modal: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Surfaces that were hardcoded white — flip to dark in dark mode */
+[data-theme="dark"] .book-card,
+[data-theme="dark"] .search-dropdown,
+[data-theme="dark"] .search-empty,
+[data-theme="dark"] .modal,
+[data-theme="dark"] .modal-select {
+  background: var(--cream-dark);
+}
+
+/* Header stays dark in both modes — "old book spine" feel */
+[data-theme="dark"] .app-header {
+  background: #1a1410;
+  color: #e5ddd0;
+}
+
+[data-theme="dark"] .app-title,
+[data-theme="dark"] .search-input {
+  color: #e5ddd0;
 }
 
 /* ── Reset & Base ── */
@@ -46,6 +98,7 @@ body {
 
 /* ── Header ── */
 .app-header {
+  position: relative;
   background: var(--ink);
   color: var(--cream);
   padding: 2rem 1.5rem 2.5rem;
@@ -79,10 +132,44 @@ body {
 
 .app-subtitle {
   font-size: 0.88rem;
-  color: rgba(247, 243, 237, 0.5);
+  color: rgba(229, 221, 208, 0.5);
   margin-top: 0.25rem;
   letter-spacing: 0.05em;
   font-weight: 300;
+}
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  color: #e5ddd0;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.theme-toggle:active { transform: scale(0.97); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* ── Search ── */
@@ -106,7 +193,7 @@ body {
 }
 
 .search-icon {
-  color: rgba(247,243,237,0.5);
+  color: rgba(229, 221, 208, 0.5);
   font-size: 1.3rem;
   margin-right: 0.5rem;
   pointer-events: none;
@@ -124,7 +211,7 @@ body {
   padding: 0.85rem 0;
 }
 
-.search-input::placeholder { color: rgba(247,243,237,0.4); }
+.search-input::placeholder { color: rgba(229, 221, 208, 0.4); }
 
 .search-spinner {
   width: 16px;
@@ -315,7 +402,7 @@ body {
 
 .book-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 24px rgba(30, 20, 5, 0.13);
+  box-shadow: 0 6px 24px rgba(46, 44, 41, 0.13);
 }
 
 .book-card:active { transform: translateY(-1px); }
@@ -418,7 +505,7 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(20, 15, 5, 0.6);
+  background: rgba(20, 18, 15, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -664,7 +751,7 @@ body {
   padding: 0.5rem 1rem;
   background: transparent;
   color: var(--red-soft);
-  border: 1px solid rgba(200, 68, 68, 0.25);
+  border: 1px solid rgba(160, 126, 122, 0.3);
   border-radius: var(--radius);
   font-family: var(--font-body);
   font-size: 0.82rem;
