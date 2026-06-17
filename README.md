@@ -81,3 +81,10 @@ Notes
 - The app is fully client-side and depends on browser storage; clearing site data will reset saved books and theme preference.
 - The Open Library search response is transformed to the app's internal book model, so missing fields are replaced with default values.
 - The project does not currently include a backend.
+
+Possible Improvements
+-----
+- Better storage solution for device to device use
+- Redesign to look like a shelf
+- Shopping links for want to read
+- Music player?
