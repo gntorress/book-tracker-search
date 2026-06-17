@@ -1,13 +1,12 @@
 :root {
-  /* Light mode — Shoji White parchment + Vintage Vogue accent */
-  --text: #4f4842;              /* Urbane Bronze */
-  --text-h: #2e2c29;            /* Perle Noir */
-  --bg: #e5ddd0;                /* Shoji White */
-  --border: #c8bcab;            /* Shiitake, lightened */
-  --code-bg: #ebe1d2;           /* paler Shiitake */
-  --accent: #3a4f58;            /* Vintage Vogue */
-  --accent-bg: rgba(58, 79, 88, 0.1);
-  --accent-border: rgba(58, 79, 88, 0.5);
+  --text: #4f4842;
+  --text-h: #2e2c29;
+  --bg: #e5ddd0;
+  --border: #c8bcab;
+  --code-bg: #ebe1d2;
+  --accent: #9a4630;
+  --accent-bg: rgba(154, 70, 48, 0.1);
+  --accent-border: rgba(154, 70, 48, 0.5);
   --social-bg: rgba(200, 188, 171, 0.5);
   --shadow:
     rgba(46, 44, 41, 0.1) 0 10px 15px -3px,
@@ -32,16 +31,15 @@
   }
 }
 
-/* ── Dark mode tokens for index.css scope ── */
 [data-theme="dark"] {
-  --text: #b5a697;              /* Shiitake — warm parchment text */
-  --text-h: #e5ddd0;            /* Shoji White — heading cream */
-  --bg: #2e2c29;                /* Perle Noir */
-  --border: #4f4842;            /* Urbane Bronze */
-  --code-bg: #3a3835;           /* slightly lifted from bg */
-  --accent: #8aa3aa;            /* lightened Vintage Vogue */
-  --accent-bg: rgba(138, 163, 170, 0.15);
-  --accent-border: rgba(138, 163, 170, 0.5);
+  --text: #b5a697;
+  --text-h: #e5ddd0;
+  --bg: #2e2c29;
+  --border: #4f4842;
+  --code-bg: #3a3835;
+  --accent: #9a4630;
+  --accent-bg: rgba(154, 70, 48, 0.1);
+  --accent-border: rgba(154, 70, 48, 0.5);
   --social-bg: rgba(79, 72, 66, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.5) 0 10px 15px -3px,
@@ -84,6 +82,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -93,6 +92,7 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }

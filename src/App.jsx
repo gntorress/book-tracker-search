@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import BookCard from "./components/BookCard";
 import BookModal from "./components/BookModal";
 import SearchBar from "./components/SearchBar";
+import ManualAddModal from "./components/ManualAddModal";
 import "./App.css";
 
-// ── Theme toggle icons ──
 const SunIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="4"/>
@@ -23,7 +23,7 @@ const MoonIcon = () => (
 
 function loadBooks() {
   const saved = localStorage.getItem("myBooks");
-  if (!saved) return []; // ← empty shelf by default
+  if (!saved) return [];
   return JSON.parse(saved);
 }
 
@@ -31,14 +31,12 @@ function saveBooks(books) {
   localStorage.setItem("myBooks", JSON.stringify(books));
 }
 
-// ------------------------------------------
-
 export default function App() {
   const [books, setBooks] = useState(loadBooks);
   const [selectedBook, setSelectedBook] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [manualAddTitle, setManualAddTitle] = useState(null);
 
-  // ── Theme state: saved choice → system preference → light ──
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem("theme");
     if (saved) return saved;
@@ -66,8 +64,7 @@ export default function App() {
       description: bookData.description || "",
       notes: "",
     };
-    const updated = [newBook, ...books];
-    setBooks(updated);
+    setBooks([newBook, ...books]);
   }
 
   function handleUpdateBook(updatedBook) {
@@ -77,9 +74,13 @@ export default function App() {
   }
 
   function handleDeleteBook(bookId) {
-    const updated = books.filter((b) => b.id !== bookId);
-    setBooks(updated);
+    setBooks(books.filter((b) => b.id !== bookId));
     setSelectedBook(null);
+  }
+
+  function handleManualSave(bookData) {
+    handleAddBook(bookData);
+    setManualAddTitle(null);
   }
 
   const visibleBooks =
@@ -106,7 +107,7 @@ export default function App() {
             </h1>
             <p className="app-subtitle">What are we reading today?</p>
           </div>
-          <SearchBar onAddBook={handleAddBook} />
+          <SearchBar onAddBook={handleAddBook} onManualAdd={setManualAddTitle} />
         </div>
       </header>
 
@@ -144,13 +145,20 @@ export default function App() {
         )}
       </main>
 
-      {/* The modal only renders when a book is selected */}
       {selectedBook && (
         <BookModal
           book={selectedBook}
           onClose={() => setSelectedBook(null)}
           onUpdate={handleUpdateBook}
           onDelete={handleDeleteBook}
+        />
+      )}
+
+      {manualAddTitle !== null && (
+        <ManualAddModal
+          initialTitle={manualAddTitle}
+          onSave={handleManualSave}
+          onClose={() => setManualAddTitle(null)}
         />
       )}
     </div>

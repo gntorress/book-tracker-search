@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export default function SearchBar({ onAddBook }) {
+export default function SearchBar({ onAddBook, onManualAdd }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -69,6 +69,13 @@ export default function SearchBar({ onAddBook }) {
     setShowDropdown(false);
   }
 
+  function handleManualAdd() {
+    onManualAdd(query.trim());
+    setQuery("");
+    setResults([]);
+    setShowDropdown(false);
+  }
+
   return (
     <div className="search-wrapper" ref={wrapperRef}>
       <div className="search-box">
@@ -106,6 +113,15 @@ export default function SearchBar({ onAddBook }) {
 
       {showDropdown && query.length >= 2 && !loading && results.length === 0 && (
         <div className="search-empty">No results found for "{query}"</div>
+      )}
+
+      {query.trim().length >= 2 && (
+        <p className="manual-add-hint">
+          Can't find your book?{" "}
+          <button className="manual-add-btn" onClick={handleManualAdd}>
+            Add it manually
+          </button>
+        </p>
       )}
     </div>
   );
