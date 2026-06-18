@@ -1,6 +1,11 @@
 Book Tracker Search App
 =======================
 
+Want to use it?
+--------
+https://book-tracker-search.gntorress.workers.dev/
+- Please note this runs on a device to device basis, so this will not save across different devices. Please read below for more detaols
+
 Overview
 --------
 This project is a small React-based book management app built with Vite. It lets the user search for books via the Open Library API, add selected books to a personal shelf, filter by reading status, edit book details, rate books, write notes, and persist the shelf using browser localStorage.
